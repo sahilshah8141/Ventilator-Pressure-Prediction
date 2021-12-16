@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{{ url_for('static', path='/styles/index.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">
+        Ventilator Pressure Prediction
+    </div>
+    </br>
+        <img class="img-cover" src="../static/ventilator.jpg" alt="Ventilator image">
+    </br>
+    <br action="">
+        <div class="row">
+            <div class="col-25">
+                <label for="R">R</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="R" placeholder="Lung attribute indicating how restricted the airway is (in cmH2O/L/S)">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <label for="C">C</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="C" placeholder="Lung attribute indicating how compliant the lung is (in mL/cmH2O).">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <label for="u_in">u_in</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="u_in" placeholder="The control input for the inspiratory solenoid valve. Ranges from 0 to 100.">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-25">
+                <label for="u_out">u_out</label>
+            </div>
+            <div class="col-75">
+                <input type="text" id="u_out" placeholder="The control input for the exploratory solenoid valve. Either 0 or 1.">
+            </div>
+        </div>
+        </br>
+        <div class="row">
+            <input type="submit"  id="submit" value="Submit">
+        </div>
+        </br>
+        </br>
+
+        <div id="result">
+            <span> Predicted Pressure: </span>
+            <span id="pressure_result"></span>
+        </div>
+
+    </form>
+</div>
+<script>
+
+$("#submit").click(function() {
+    var request_payload = {
+        "R": document.getElementById("R").value,
+        "C": document.getElementById("C").value,
+        "u_in": document.getElementById("u_in").value,
+        "u_out": document.getElementById("u_out").value
+    };
+    let request_payload_string = JSON.stringify(request_payload);
+    console.log(request_payload_string)
+
+    $.ajax({
+        url: '/predict',
+        type: 'POST',
+        contentType: 'application/json',
+        data: request_payload_string,
+        dataType: 'json',
+        success: function (result) {
+            let resultString = JSON.stringify(result);
+            let result_json = JSON.parse(resultString);
+            let data = result_json['data'];
+            document.getElementById("result").style.visibility = "visible"
+            document.getElementById('pressure_result').innerHTML = data;
+        }
+    });
+  });
+</script>
+</body>
+</html>
+
