@@ -17,8 +17,8 @@ def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-# app.include_router(prediction_router, prefix="/predict")
+app.include_router(prediction_router, prefix="/predict")
 
-if __name__ == "__main__":
-    app.include_router(prediction_router, prefix="/predict")
-    uvicorn.run(app, host="localhost", port=8000)
+# if __name__ == "__main__":
+#     app.include_router(prediction_router, prefix="/predict")
+#     uvicorn.run(app, host="localhost", port=8000)
