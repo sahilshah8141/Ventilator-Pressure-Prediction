@@ -1,6 +1,5 @@
 <h1 align="center">
     <p>Ventilator-Pressure-Prediction</p>
-    <a href="https://imgbb.com/"><img src="https://i.ibb.co/V27nkcf/venti-final.gif" alt="venti-final" border="0"></a>
 </h1>
 
 <p align="center">
@@ -11,6 +10,10 @@
         <img src="https://img.shields.io/badge/python-3.6%2C3.7%2C3.8-blue?logo=python" />
     </a>
 </p> 
+
+<h1 align="center">
+    <a href="https://imgbb.com/"><img src="https://i.ibb.co/V27nkcf/venti-final.gif" alt="venti-final" border="0"></a>
+</h1>
 
 ## 📝 Description
 - In this project, I have used the **Random Forest** model for ventilator pressure prediction.
